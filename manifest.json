@@ -5,10 +5,8 @@
     "description": "Transfer contact data to Nexus Sales",
     "permissions": [
       "activeTab",
-      "scripting",
       "storage",
-        "contextMenus",
-        "tabs"
+      "tabs"
     ],
     "host_permissions": [
         "https://*.nexussales.io/*",
