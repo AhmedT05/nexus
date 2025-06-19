@@ -263,14 +263,7 @@ console.log('Contact Transfer Extension background script loaded');
                 })
                 .then(data => {
                     console.log('Final success response:', data);
-                    // Refresh all Nexus website tabs
-                    chrome.tabs.query({}, function(tabs) {
-                        tabs.forEach(tab => {
-                            if (tab.url && tab.url.includes('nexussales.io')) {
-                                chrome.tabs.reload(tab.id);
-                            }
-                        });
-                    });
+                    // Remove the refresh feature: do not reload tabs
                     sendResponse({ 
                         success: true, 
                         message: 'Contact transferred successfully',
