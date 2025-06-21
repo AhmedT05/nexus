@@ -2,7 +2,7 @@
 console.log('Contact Transfer Extension background script loaded');
 
 // Listen for messages from popup and content scripts
-        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.from === 'popup') {
         if (message.action === 'saveApiKey') {
             chrome.storage.local.set({ apiKey: message.apiKey }, () => {

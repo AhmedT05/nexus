@@ -212,14 +212,25 @@ class ContactTransferTool {
 
     requestContactData() {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            console.log('Requesting contact data from tab:', tabs[0].id);
-            chrome.tabs.sendMessage(tabs[0].id, { action: 'extractData' }, (response) => {
-                console.log('Received response from content script:', response);
-                if (chrome.runtime.lastError) {
-                    console.error('Error requesting contact data:', chrome.runtime.lastError);
-                    this.showStatus('Error: ' + chrome.runtime.lastError.message, 'error');
-                }
-            });
+            if (tabs[0]) {
+                console.log('Requesting contact data from tab:', tabs[0].id);
+                chrome.tabs.sendMessage(tabs[0].id, { action: 'extractData' }, (response) => {
+                    console.log('Received response from content script:', response);
+                    if (chrome.runtime.lastError) {
+                        console.error('Error requesting contact data:', chrome.runtime.lastError);
+                        this.showStatus('Error: ' + chrome.runtime.lastError.message, 'error');
+                    } else if (response && response.success && response.data) {
+                        this.contactData = response.data;
+                        this.displayScrapedData(response.data);
+                        this.transferButton.disabled = false;
+                        this.showStatus('Contact data extracted successfully!', 'success');
+                    } else if (response && !response.success) {
+                        this.showStatus(response.message || 'Failed to extract contact data', 'error');
+                    }
+                });
+            } else {
+                this.showStatus('No active tab found', 'error');
+            }
         });
     }
 

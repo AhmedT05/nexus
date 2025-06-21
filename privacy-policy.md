@@ -27,17 +27,8 @@ The Nexus Extension is designed to transfer contact data between OneLink Intruit
 ### activeTab
 Used to access the current tab's content to extract contact information from OneLink Intruity pages.
 
-### scripting
-Used to inject content scripts that extract contact information from web pages.
-
 ### storage
 Used to securely store your API key and workflow preferences locally.
-
-### contextMenus
-Used to provide right-click menu options for quick access to contact transfer functionality.
-
-### tabs
-Used to refresh Nexus Sales pages after successful contact transfers.
 
 ### Host Permissions
 Required to interact with:

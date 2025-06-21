@@ -19,12 +19,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             
             if (contactData && hasValidData(contactData)) {
                 showNotification('Contact data extracted successfully!', 'success');
-                chrome.runtime.sendMessage({
-                        from: 'content',
-                        action: 'extractData',
-                        data: contactData
-                    });
-                    sendResponse({ success: true });
+                sendResponse({ 
+                    success: true, 
+                    data: contactData 
+                });
             } else {
                 const message = 'No contact data found on this page. Make sure you\'re on a contact details page.';
                 console.log(message);
