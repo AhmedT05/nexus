@@ -66,7 +66,7 @@ function extractContactData() {
             city: '',
             state: '',
             zipcode: '',
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            timezone: ''
         };
     
         const currentUrl = window.location.href;
@@ -251,6 +251,32 @@ function extractContactData() {
                     }
                 }
             });
+
+            // —— NEW: scrape the page's own "Current Leadtime" field ——
+            // 1) Find the <label> whose exact text is "Current Leadtime:"
+            const labelEl = Array.from(
+              document.querySelectorAll('.form-group label')
+            ).find(el => el.textContent.trim() === 'Current Leadtime:');
+
+            if (labelEl) {
+              // 2) Get the sibling <input> and read its .value
+              const inputEl = labelEl.parentElement.querySelector('input.form-control');
+              const raw = inputEl?.value?.trim() || ''; 
+              //    e.g. "9:04:37 PM Central"
+
+              // 3) Split on whitespace and take the last token
+              const parts = raw.split(/\s+/);
+              let tz = parts.pop() || '';
+
+              // — Map abbreviations to full IANA names (as used by the website) —
+              const TZ_MAP = {
+                Eastern:  'America/New_York',
+                Central:  'America/Chicago',
+                Mountain: 'America/Denver',
+                Pacific:  'America/Los_Angeles'
+              };
+              data.timezone = TZ_MAP[tz] || tz;
+            }
         }
 
         console.log('Final extracted data:', data);
