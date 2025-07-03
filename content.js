@@ -311,65 +311,13 @@ function hasValidData(contactData) {
 }
 
 function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-            padding: 15px 25px;
-        border-radius: 5px;
-        color: white;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-            z-index: 999999;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: opacity 0.3s ease-in-out;
-    `;
-    
-    // Set background color based on type
-        switch (type) {
-            case 'success':
-                notification.style.backgroundColor = '#4CAF50';
-                break;
-            case 'error':
-                notification.style.backgroundColor = '#f44336';
-                break;
-            case 'warning':
-                notification.style.backgroundColor = '#ff9800';
-                break;
-            default:
-                notification.style.backgroundColor = '#2196F3';
-        }
-
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-        // Remove notification after 5 seconds
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => {
-                document.body.removeChild(notification);
-        }, 300);
-    }, 5000);
+    // Disabled popup notifications - only log to console
+    console.log(`[${type.toUpperCase()}] ${message}`);
 }
 
 function addExtensionIndicator() {
-    const indicator = document.createElement('div');
-    indicator.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-            background-color: #4CAF50;
-        color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-        font-family: Arial, sans-serif;
-            font-size: 14px;
-            z-index: 999999;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    `;
-    indicator.textContent = 'Contact Transfer Extension Active';
-    document.body.appendChild(indicator);
+    // Disabled extension indicator - only log to console
+    console.log('Contact Transfer Extension Active');
 }
 
     // Add extension indicator when the page loads

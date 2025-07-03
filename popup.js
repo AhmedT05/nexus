@@ -305,13 +305,8 @@ class ContactTransferTool {
     }
 
     showStatus(message, type) {
-        this.statusDiv.textContent = message;
-        this.statusDiv.className = `status ${type}`;
-        this.statusDiv.style.display = 'block';
-
-        setTimeout(() => {
-            this.statusDiv.style.display = 'none';
-        }, 3000);
+        // Disabled status popup messages - only log to console
+        console.log(`[${type.toUpperCase()}] ${message}`);
     }
 }
 
