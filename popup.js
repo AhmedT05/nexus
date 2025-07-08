@@ -305,7 +305,19 @@ class ContactTransferTool {
     }
 
     showStatus(message, type) {
-        // Disabled status popup messages - only log to console
+        const statusDiv = document.getElementById('status');
+        if (statusDiv) {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+            
+            // Auto-hide success messages after 3 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 3000);
+            }
+        }
         console.log(`[${type.toUpperCase()}] ${message}`);
     }
 }
